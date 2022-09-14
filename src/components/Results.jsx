@@ -26,6 +26,7 @@ const Results = () => {
         La temperatura maxima es :{parseInt(main.temp_max - kelvin)}
         <span>&#x2103;</span>
       </p>
+      <p>a</p>
     </div>
   );
 };
