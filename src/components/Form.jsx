@@ -15,6 +15,7 @@ const Form = () => {
       setAlert("Todos los campos son obligatorios");
       return;
     }
+    setAlert("");
     queryWeather(search);
   };
 

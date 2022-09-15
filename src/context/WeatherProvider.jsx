@@ -11,6 +11,10 @@ const WeatherProvider = ({ children }) => {
 
   const [result, setResult] = useState({});
 
+  const [charging, setCharging] = useState(false);
+
+  const [noResult, setNoResult] = useState(false);
+
   const dataSearch = (e) => {
     setSearch({
       ...search,
@@ -19,6 +23,8 @@ const WeatherProvider = ({ children }) => {
   };
 
   const queryWeather = async (info) => {
+    setCharging(true);
+    setNoResult(false);
     try {
       const { country, city } = info;
 
@@ -33,14 +39,17 @@ const WeatherProvider = ({ children }) => {
 
       const { data: weather } = await axios(urlWeather);
       setResult(weather);
+      setCharging(false);
     } catch (error) {
-      console.log(error);
+      setNoResult("No hay resultados");
+    } finally {
+      setCharging(false);
     }
   };
 
   return (
     <WeatherContext.Provider
-      value={{ search, dataSearch, queryWeather, result }}
+      value={{ search, dataSearch, queryWeather, result, charging, noResult }}
     >
       {children}
     </WeatherContext.Provider>
